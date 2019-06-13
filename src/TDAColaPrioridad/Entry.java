@@ -1,4 +1,4 @@
-package TDAColaP;
+package TDAColaPrioridad;
 /**
  * Interface Entry
  * @author Matias

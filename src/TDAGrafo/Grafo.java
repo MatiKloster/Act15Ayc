@@ -2,6 +2,8 @@ package TDAGrafo;
 
 import java.util.Iterator;
 
+import Exceptions.EmptyListException;
+import Exceptions.InvalidPositionException;
 import TDACola.ColaEnlazada;
 import TDACola.EmptyQueueException;
 import TDACola.Queue;

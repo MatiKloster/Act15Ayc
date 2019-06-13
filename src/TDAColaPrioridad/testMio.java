@@ -1,4 +1,4 @@
-package TDAColaP;
+package TDAColaPrioridad;
 
 public class testMio {
 	public static void main(String[] args){

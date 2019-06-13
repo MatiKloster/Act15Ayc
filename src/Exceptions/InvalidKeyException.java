@@ -1,4 +1,4 @@
-package TDAColaPrioridad;
+package Exceptions;
 /**
  * Exception utilizada cuando se introduce una clave invalida
  * @author Matias Kloster

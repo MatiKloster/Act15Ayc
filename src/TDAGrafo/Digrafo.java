@@ -1,5 +1,8 @@
 package TDAGrafo;
 import java.util.Iterator;
+
+import Exceptions.EmptyListException;
+import Exceptions.InvalidPositionException;
 import TDALista.*;
 
 public class Digrafo<V,E> implements GraphD<V,E> {

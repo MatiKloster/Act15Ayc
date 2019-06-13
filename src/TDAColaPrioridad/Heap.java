@@ -1,9 +1,9 @@
-package TDAColaP;
+package TDAColaPrioridad;
+
 
 import java.util.Comparator;
-
 public class Heap<K,V> implements PriorityQueue<K,V> {
-	protected Entrada<K,V> [] ar;
+	protected Entrada<K,V>[] ar;
 	protected Comparator<K> comp;
 	protected int size;
 	private int maxElements=50;

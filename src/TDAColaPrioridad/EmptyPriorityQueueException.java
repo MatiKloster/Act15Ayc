@@ -1,4 +1,4 @@
-package TDAColaP;
+package TDAColaPrioridad;
 /**
  * Exception utilizada cuando se quiere operar sobre una Cola con prioridades vacia
  * @author Matias Kloster

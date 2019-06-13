@@ -1,4 +1,4 @@
-package	TDAColaP;
+package	TDAColaPrioridad;
 /**
  * Class Entrada
  * @author Matias Kloster

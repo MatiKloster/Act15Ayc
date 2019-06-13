@@ -1,5 +1,6 @@
 package TDAGrafo;
 
+import Exceptions.EmptyListException;
 import TDALista.*;
 public class GrafoConMatriz<V,E> implements Graph<V,E> {
 	protected PositionList<Vertice<V,E>> listaVertice; // preguntar si tengo que poner vertice o vertex
