@@ -1,16 +1,12 @@
 package TDAColaPrioridad;
 
-
-import java.util.Comparator;
-public class Heap<K,V> implements PriorityQueue<K,V> {
-	protected Entrada<K,V>[] ar;
-	protected Comparator<K> comp;
-	protected int size;
+public class Heap{
+	private Pesado [] ar;
+	private int size;
 	private int maxElements=50;
 	
-	public Heap(Comparator<K> comp){
-		this.ar=(Entrada<K,V>[])new Entrada[maxElements];
-		this.comp=comp;
+	public Heap(){
+		this.ar=new Pesado[maxElements];
 		this.size=0;
 	}
 	
@@ -22,48 +18,41 @@ public class Heap<K,V> implements PriorityQueue<K,V> {
 		return this.size==0;
 	}
 
-	public Entry<K, V> min() throws EmptyPriorityQueueException {
+	public Pesado min() throws Exception {
 		if(isEmpty())
-			throw new EmptyPriorityQueueException("La cola con prioridad esta vacia");
+			throw new Exception("La cola con prioridad esta vacia");
 		else
 			return ar[1];
 	}
 
 	
-	public Entry<K, V> insert(K key, V value) throws InvalidKeyException {
+	public Pesado insert(Pesado p) {
 		if(size==maxElements-1){
-			Entrada<K,V>[] aux=(Entrada<K,V>[]) new Entrada[maxElements*2];
-			for(int i=1;i<maxElements;i++){
-				aux[i]=ar[i];
-			}
+			Pesado[] aux=new Pesado[maxElements*2];
+			if (maxElements - 1 >= 0) System.arraycopy(ar, 1, aux, 1, maxElements - 1);
 			this.ar=aux;
 			maxElements*=2;
 		}
-		if(key==null){
-			throw new InvalidKeyException("Clave nula");
-		}
-		Entrada<K,V> ent=new Entrada<K,V>(key,value);
-		ar[++size]=ent;
+		ar[++size]=p;
 		int i=size;
 		boolean sigo=true;
 		while(i>1 && sigo){
-			Entrada<K,V> elemActual=ar[i];
-			Entrada<K,V> elemPadre=ar[(i/2)];
-			if(comp.compare(elemActual.getKey(), elemPadre.getKey())<0){
-				Entrada<K,V> aux=elemActual;
+			Pesado elemActual=ar[i];
+			Pesado elemPadre=ar[(i/2)];
+			if(elemActual.getPeso() < elemPadre.getPeso()){
 				ar[i]=ar[i/2];
-				ar[i/2]=aux;
+				ar[i/2]= elemActual;
 				i/=2;
 			}
 			else{
 				sigo=false;
 			}
 		}
-		return ent;
+		return p;
 	}
 
-	public Entry<K, V> removeMin() throws EmptyPriorityQueueException {
-		Entry<K,V> ent=min();
+	public Pesado removeMin() throws Exception {
+		Pesado ent=min();
 		if(size==1){
 			ar[size--]=null;
 			return ent;
@@ -79,14 +68,16 @@ public class Heap<K,V> implements PriorityQueue<K,V> {
 				if(!tieneHIzq) seguir=false;
 				else{
 					if(tieneHDer){
-						if(comp.compare(ar[hIzq].getKey(), ar[hDer].getKey())<0) m=hIzq;
-						else m=hDer;
+						if(ar[hIzq].getPeso() < ar[hDer].getPeso())
+							m=hIzq;
+						else
+							m=hDer;
 					}
 					else m=hIzq;
 				}
 			
-				if(seguir && comp.compare(ar[i].getKey(), ar[m].getKey())>0){
-					Entrada<K,V> aux=ar[i];
+				if(seguir && ar[hIzq].getPeso() > ar[hDer].getPeso()){
+					Pesado aux=ar[i];
 					ar[i]=ar[m];
 					ar[m]=aux;
 					i=m;
@@ -95,10 +86,5 @@ public class Heap<K,V> implements PriorityQueue<K,V> {
 			}
 		}
 		return ent;
-	}
-	public void mostrarHeap(){
-		for(int i=1;i<=size;i++){
-			System.out.println(ar[i].getKey());
-		}
 	}
 }
