@@ -64,4 +64,8 @@ public class Grafo {
     public ArrayList<Pesado> getArcos(){
         return arcos;
     }
+
+    public int[] getNodos(){
+        return nodos;
+    }
 }

@@ -6,7 +6,7 @@ import TDALista.NodoD;
 
 import java.util.ArrayList;
 
-class DisjointSet {
+public class DisjointSet {
     int[] rank;
     DoubleLinkedList<NodoDisjoint> parentList;
     NodoD<NodoDisjoint>[] nodos;
@@ -27,14 +27,14 @@ class DisjointSet {
     }
 
     // Creates n sets with single item in each
-    void makeSet(int n) {
+    public void makeSet(int n) {
         NodoDisjoint nodo = new NodoDisjoint(n,null,0);
         nodos[n] = parentList.addFirst(nodo);
 
     }
 
     // Returns representative of x's set
-    NodoDisjoint find(int x) {
+    public NodoDisjoint find(int x) {
         // Finds the representative of the set
         // that x is an element of
         if (nodos[x].element().getPadre() != null) {
@@ -53,7 +53,7 @@ class DisjointSet {
 
     // Unites the set that includes x and the set
     // that includes x
-    void union(int x, int y) {
+    public void union(int x, int y) {
         // Find representatives of two sets
         NodoDisjoint xRoot = find(x), yRoot = find(y);
 
