@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.stream.IntStream;
+
 import TDAColaPrioridad.Pesado;
+import TDALista.PositionList;
 
 public class Grafo {
     private int[] nodos;
