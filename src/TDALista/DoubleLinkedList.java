@@ -129,7 +129,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 			E aux = null;
 			if(n!=head && n!=tail){
 				aux=n.element();
-				n.getAnterior().setSiguiente(n.getSiguiente());;
+				n.getAnterior().setSiguiente(n.getSiguiente());
 				n.getSiguiente().setAnterior(n.getAnterior());
 				longitud--;
 			}
