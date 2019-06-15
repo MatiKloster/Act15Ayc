@@ -84,13 +84,14 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 		}
 	}
 	
-	public void addFirst(E e){//O(1)
+	public NodoD<E> addFirst(E e){//O(1)
 		
 		NodoD<E> n=new NodoD<E>(e,head.getSiguiente(),head);
 		
 		head.getSiguiente().setAnterior(n);
 		head.setSiguiente(n);
 		longitud++;
+		return n;
 	}
 	
 	public void addLast(E e){ //O(1)
