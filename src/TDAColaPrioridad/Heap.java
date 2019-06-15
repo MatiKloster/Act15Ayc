@@ -3,7 +3,7 @@ package TDAColaPrioridad;
 public class Heap{
 	private Pesado [] ar;
 	private int size;
-	private int maxElements=50;
+	private int maxElements=100;
 	
 	public Heap(){
 		this.ar=new Pesado[maxElements];
@@ -18,37 +18,37 @@ public class Heap{
 		return this.size==0;
 	}
 
-	public Pesado min() throws Exception {
+	public Pesado min() throws EmptyPriorityQueueException {
 		if(isEmpty())
-			throw new Exception("La cola con prioridad esta vacia");
+			throw new EmptyPriorityQueueException("El heap está vacío");
 		else
 			return ar[1];
 	}
 
 	
-	public Pesado insert(Pesado p) {
-		if(size==maxElements-1){
-			Pesado[] aux=new Pesado[maxElements*2];
-			if (maxElements - 1 >= 0) System.arraycopy(ar, 1, aux, 1, maxElements - 1);
-			this.ar=aux;
-			maxElements*=2;
-		}
-		ar[++size]=p;
-		int i=size;
-		boolean sigo=true;
-		while(i>1 && sigo){
-			Pesado elemActual=ar[i];
-			Pesado elemPadre=ar[(i/2)];
-			if(elemActual.getPeso() < elemPadre.getPeso()){
-				ar[i]=ar[i/2];
-				ar[i/2]= elemActual;
-				i/=2;
+	public void insert(Pesado p) {
+		if (size == maxElements - 1) {
+			Pesado[] aux = new Pesado[maxElements * 2];
+			for (int i = 1; i < maxElements; i++) {
+				aux[i] = ar[i];
+				this.ar = aux;
+				maxElements *= 2;
 			}
-			else{
-				sigo=false;
+			ar[++size] = p;
+			int i = size;
+			boolean sigo = true;
+			while (i > 1 && sigo) {
+				Pesado elemActual = ar[i];
+				Pesado elemPadre = ar[(i / 2)];
+				if (elemActual.getPeso() < elemPadre.getPeso()) {
+					ar[i] = ar[i / 2];
+					ar[i / 2] = elemActual;
+					i /= 2;
+				} else {
+					sigo = false;
+				}
 			}
 		}
-		return p;
 	}
 
 	public Pesado removeMin() throws Exception {
