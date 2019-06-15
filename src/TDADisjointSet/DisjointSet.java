@@ -11,14 +11,12 @@ class DisjointSet {
     DoubleLinkedList<NodoDisjoint> parentList;
     NodoD<NodoDisjoint>[] nodos;
 
-    int n;
-
     // Constructor
     public DisjointSet(int n) {
         rank = new int[n];
         parentList= new DoubleLinkedList<NodoDisjoint>();
         nodos = new NodoD[n];
-        this.n = n;
+
 
     }
 
