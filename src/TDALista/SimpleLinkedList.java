@@ -47,7 +47,7 @@ public class SimpleLinkedList<E> implements PositionList<E>{
 		Nodo<E> aux=null;
 		try{
 			if(!isEmpty() && p==first()){
-				throw new BoundaryViolationException(" Lista::prev(): " +"Posición primera");
+				throw new BoundaryViolationException(" Lista::prev(): " +"Posiciï¿½n primera");
 			}
 			else{
 				Nodo<E> n=checkPosition(p);
@@ -56,7 +56,7 @@ public class SimpleLinkedList<E> implements PositionList<E>{
 					aux=aux.getSiguiente();
 				}
 				if(aux.getSiguiente()==null){
-					throw new InvalidPositionException(" Lista::prev(): " +"Posición no pertenece a la lista");
+					throw new InvalidPositionException(" Lista::prev(): " +"Posiciï¿½n no pertenece a la lista");
 				}
 			}
 		}
@@ -89,7 +89,7 @@ public class SimpleLinkedList<E> implements PositionList<E>{
 		}
 	}
 	
-	public void addFirst(E e){
+	public NodoD<E> addFirst(E e){
 		head=new Nodo<E>(e,head);
 		longitud++;
 	}

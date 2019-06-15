@@ -1,3 +1,5 @@
+package TDADisjointSet;
+
 public class NodoDisjoint {
     private int elemento;
     private NodoDisjoint padre;

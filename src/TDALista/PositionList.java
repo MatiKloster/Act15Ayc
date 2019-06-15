@@ -58,7 +58,7 @@ public interface PositionList<E> extends Iterable<E>{
 	 * Inserta un elemento en la primera posicion de la lista
 	 * @param e Elemento a ingresar al principio de la lista
 	 */
-	public void addFirst(E e);
+	public NodoD<E> addFirst(E e);
 	
 	/**
 	 * Inserta un elemento en la ultima posicion de la lista
@@ -91,7 +91,7 @@ public interface PositionList<E> extends Iterable<E>{
 	public E remove(Position<E>p)throws InvalidPositionException;
 	
 	/**
-	 *  Establece el elemento en la posición pasados por parámetro. Reemplaza el elemento que se encontraba anteriormente en esa posición y devuelve el elemento anterior
+	 *  Establece el elemento en la posiciï¿½n pasados por parï¿½metro. Reemplaza el elemento que se encontraba anteriormente en esa posiciï¿½n y devuelve el elemento anterior
 	 * @param p Posicion del elemento a reemplzar
 	 * @return e Elemento que estaba antes en la posicion p
 	 * @throws InvalidPositionException si la posicion es nula, no pertence a la lista, o la lista esta vacia

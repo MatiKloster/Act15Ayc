@@ -1,18 +1,20 @@
+package TDADisjointSet;
+
 public class NodoDisjointSH {
     private int elemento;
-    private NodoDisjoint padre;
+    private NodoDisjointSH padre;
 
 
-    public NodoDisjointSH(int elemento, NodoDisjoint padre, int rank){
+    public NodoDisjointSH(int elemento, NodoDisjointSH padre, int rank){
         this.elemento = elemento;
         this.padre = padre;
     }
 
-    public void setPadre(NodoDisjoint padre){
+    public void setPadre(NodoDisjointSH padre){
         this.padre = padre;
     }
 
-    public NodoDisjoint getPadre(){
+    public NodoDisjointSH getPadre(){
         return padre;
     }
 
