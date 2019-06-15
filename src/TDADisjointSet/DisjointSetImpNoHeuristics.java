@@ -6,14 +6,14 @@ import TDALista.NodoD;
 
 import java.util.ArrayList;
 
-class DisjointSetImpNoHeuristics implements DisjointSet {
+public class DisjointSetSH {
 
     DoubleLinkedList<NodoDisjointSH> parentList;
     NodoD<NodoDisjointSH>[] nodos;
 
 
     // Constructor
-    public DisjointSetImpNoHeuristics(int n) {
+    public DisjointSetSH(int n) {
         parentList = new DoubleLinkedList<NodoDisjointSH>();
         nodos = new NodoD[n];
 
@@ -49,7 +49,7 @@ class DisjointSetImpNoHeuristics implements DisjointSet {
 
     // Unites the set that includes x and the set
     // that includes x
-    void union(int x, int y) {
+    public void union(int x, int y) throws InvalidPositionException {
         // Find representatives of two sets
         NodoDisjointSH xRoot = find(x), yRoot = find(y);
 

@@ -6,13 +6,13 @@ import Exceptions.EmptyListException;
 import Exceptions.InvalidPositionException;
 
 public class DoubleLinkedList<E>  implements PositionList<E> {
-	protected NodoD<E> head,tail;
-	protected int longitud;
+	private NodoD<E> head,tail;
+	private int longitud;
 	
 	public DoubleLinkedList(){
 		longitud=0;
-		head=new NodoD<E>(null,null,null);
-		tail=new NodoD<E>(null,null,head);
+		head= new NodoD<>(null, null, null);
+		tail= new NodoD<>(null, null, head);
 		head.setSiguiente(tail);
 	}
 	
@@ -29,7 +29,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 			throw new EmptyListException("Lista vacia");
 		}
 		else{
-			return (Position<E> )head.getSiguiente();
+			return head.getSiguiente();
 		}
 	}
 	public Position<E> last()throws EmptyListException{ //O(1)
@@ -37,7 +37,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 			throw new EmptyListException("Lista vacia");
 		}
 		else{
-			return (Position<E>)tail.getAnterior();
+			return tail.getAnterior();
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 	
 	public NodoD<E> addFirst(E e){//O(1)
 		
-		NodoD<E> n=new NodoD<E>(e,head.getSiguiente(),head);
+		NodoD<E> n= new NodoD<>(e, head.getSiguiente(), head);
 		
 		head.getSiguiente().setAnterior(n);
 		head.setSiguiente(n);
@@ -95,7 +95,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 	}
 	
 	public void addLast(E e){ //O(1)
-		NodoD<E> n=new NodoD<E>(e,tail,tail.getAnterior());
+		NodoD<E> n= new NodoD<>(e, tail, tail.getAnterior());
 		tail.getAnterior().setSiguiente(n);
 		tail.setAnterior(n);
 		longitud++;
@@ -104,7 +104,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 	public void addAfter(Position<E> p,E e)throws InvalidPositionException{ //O(1)
 		NodoD<E> n=checkPosition(p);
 		if(n!=tail){    
-			NodoD<E> a=new NodoD<E>(e,n.getSiguiente(),n);
+			NodoD<E> a= new NodoD<>(e, n.getSiguiente(), n);
 			n.getSiguiente().setAnterior(a);
 			n.setSiguiente(a);
 			longitud++;
@@ -113,7 +113,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 	
 	public void addBefore(Position<E> p,E e)throws InvalidPositionException{//O(1)
 		NodoD<E> n=checkPosition(p);
-		NodoD<E> a=new NodoD<E>(e,null,null);
+		NodoD<E> a= new NodoD<>(e, null, null);
 		if(n!=head){
 			a.setSiguiente(n);
 			a.setAnterior(n.getAnterior());
@@ -147,11 +147,11 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 		return aux;
 	}
 	public Iterator<E> iterator(){
-		return new ElementIterator<E>(this);
+		return new ElementIterator<>(this);
 	}
 
 	public Iterable<Position<E>> positions(){
-		PositionList<Position<E>> P=new DoubleLinkedList<Position<E>>();
+		PositionList<Position<E>> P= new DoubleLinkedList<>();
 		try {
 			if(!isEmpty()){
 				Position<E> p=first();
@@ -169,6 +169,9 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 		}
 		return P;
 	}
-		
+
+	public E removeFirst() throws InvalidPositionException {
+		return remove(head);
 	}
+}
 
