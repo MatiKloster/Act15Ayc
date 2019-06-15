@@ -73,4 +73,8 @@ public class Grafo {
     public int[] getNodos(){
         return nodos;
     }
+
+    public Pesado[] getAdyacentes(int n){
+        return matrizAdyacencia[n];
+    }
 }
