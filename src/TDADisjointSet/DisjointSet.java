@@ -4,7 +4,6 @@ import Exceptions.InvalidPositionException;
 import TDALista.DoubleLinkedList;
 import TDALista.NodoD;
 
-import java.util.ArrayList;
 
 public class DisjointSet {
     int[] rank;
@@ -99,5 +98,9 @@ public class DisjointSet {
                 xRoot.setRank();
             }
         }
+    }
+
+    public int parentSize(){
+        return parentList.size();
     }
 }
