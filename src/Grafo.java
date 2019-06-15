@@ -1,30 +1,11 @@
 import java.util.ArrayList;
+import TDAColaPrioridad.Pesado;
 
 public class Grafo {
     private int[] nodos;
     private ArrayList<Pesado> arcos;
     private Pesado[][] matrizAdyacencia;
 
-    private class Pesado {
-        private Arco arco;
-        private int peso;
-
-        private Pesado(ArrayList<Integer> arcoLista, int peso) {
-            // TODO Auto-generated constructor stub
-            this.arco = new Arco(arcoLista.get(0), arcoLista.get(1));
-            this.peso = peso;
-        }
-
-        private class Arco {
-            private int nodo1;
-            private int nodo2;
-
-            public Arco(int i, int j) {
-                this.nodo1 = i;
-                this.nodo2 = j;
-            }
-        }
-    }
 
     public int getNodosCount(){
         return this.nodos.length;
@@ -59,7 +40,7 @@ public class Grafo {
             arcoLista.add(nodoIzquierdo);
             arcoLista.add(nodoDerecho);
 
-            Pesado pesado = new Pesado(arcoLista, ((Double) arcosJson[i][1]).intValue());
+            Pesado pesado = new Pesado(arcoLista.get(0), arcoLista.get(1), ((Double) arcosJson[i][1]).intValue());
             this.arcos.add(pesado);
             matrizAdyacencia[nodoIzquierdo][nodoDerecho]=pesado;
             matrizAdyacencia[nodoDerecho][nodoIzquierdo]=pesado;
@@ -74,9 +55,13 @@ public class Grafo {
         for(int i=0;i<matrizAdyacencia.length;i++){
             for(int j=0;j<matrizAdyacencia.length;j++){
                 if(matrizAdyacencia[i][j]==null)System.out.print("0 ");
-                else System.out.print(matrizAdyacencia[i][j].peso+" ");
+                else System.out.print(matrizAdyacencia[i][j].getPeso()+" ");
             }
             System.out.println();
         }
+    }
+
+    public ArrayList<Pesado> getArcos(){
+        return arcos;
     }
 }
