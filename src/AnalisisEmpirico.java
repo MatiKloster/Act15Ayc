@@ -17,8 +17,7 @@ public class AnalisisEmpirico{
             grafo = getGrafo(5,4);
             System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
             analisisConectitud(grafo);
-            grafo.showGraph();
-            /*grafo=getGrafo(50,49);
+            grafo=getGrafo(50,49);
             System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
             analisisConectitud(grafo);
             grafo=getGrafo(150,150);
@@ -32,7 +31,7 @@ public class AnalisisEmpirico{
             analisisConectitud(grafo);
             grafo=getGrafo(500,124750);
             System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
-            analisisConectitud(grafo);*/
+            analisisConectitud(grafo);
 
 
 
@@ -71,7 +70,7 @@ public class AnalisisEmpirico{
 
     private static Grafo getGrafo(int nodos, int arcos) throws Exception {
         // TODO Auto-generated method stub
-        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos;
+        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos+"&conexo=1";
         Process process = Runtime.getRuntime().exec(consulta);
         InputStream inputSt = process.getInputStream();
         @SuppressWarnings("resource")
