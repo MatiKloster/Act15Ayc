@@ -4,7 +4,7 @@ import Exceptions.InvalidPositionException;
 import TDALista.DoubleLinkedList;
 import TDALista.NodoD;
 
-import java.util.ArrayList;
+
 
 public class DisjointSetSH {
 
@@ -14,7 +14,7 @@ public class DisjointSetSH {
 
     // Constructor
     public DisjointSetSH(int n) {
-        parentList = new DoubleLinkedList<NodoDisjointSH>();
+        parentList = new DoubleLinkedList<>();
         nodos = new NodoD[n];
 
     }
