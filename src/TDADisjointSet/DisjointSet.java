@@ -22,7 +22,7 @@ public class DisjointSet {
     }
 
     public void initiate(int[] nodos){
-        for(int i= 0; i <= nodos.length; i++){
+        for(int i= 0; i < nodos.length; i++){
             makeSet(nodos[i]);
         }
     }

@@ -24,29 +24,39 @@ public class Conexo {
     }
 
     public void BFS(Grafo graph) throws EmptyQueueException {
-        color=new Color[graph.getNodosCount()];
-        for(int n:graph.getNodos())
-            color[n]=Color.blanco;
-        padre=new int[graph.getNodosCount()];
+        color = new Color[graph.getNodosCount()];
+        padre = new int[graph.getNodosCount()];
+        for (int n : graph.getNodos()){
+            color[n] = Color.blanco;
+            padre[n]= -1;
+        }
         Queue<Integer> Q=new ColaEnlazada<>();
         for(int n:graph.getNodos()){
-            color[n]= Color.gris;
-            padre[n]=0;
-            Q.enqueue(n);
-            visitarBFS(graph,Q);
+            if(color[n]==Color.blanco){
+                color[n]= Color.gris;
+                padre[n]=-1;
+                Q.enqueue(n);
+                visitarBFS(graph,Q);
+            }
         }
     }
 
     private void visitarBFS(Grafo graph,Queue<Integer> Q) throws EmptyQueueException {
 
         while(!Q.isEmpty()){
-            int n=Q.dequeue();
+            int n=Q.front();
             Pesado [] adyacentes = graph.getAdyacentes(n);
             for(Pesado pesado: adyacentes){
-                int v = pesado.getArco().getNodo2();
-                if(color[v] == Color.blanco){
-                    Q.enqueue(v);
-                    color[v] = Color.gris;
+                if(pesado!=null){
+                    int v = pesado.getArco().getNodo2();
+                    if(v==n){
+                        v=pesado.getArco().getNodo1();
+                    }
+                    if(color[v] == Color.blanco){
+                        Q.enqueue(v);
+                        color[v] = Color.gris;
+                        padre[v]= n;
+                    }
                 }
             }
             Q.dequeue();
@@ -58,9 +68,9 @@ public class Conexo {
         BFS(graph);
         int count=0;int i=0;
         while ((count<2)&&(i<padre.length)) {
-            if (padre[i++]==0)
+            if (padre[i++]==-1)
                 count++;
         }
-        return count==2;
+        return count<2;
     }
 }
