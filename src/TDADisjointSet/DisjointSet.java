@@ -30,6 +30,7 @@ public class DisjointSet {
     // Creates n sets with single item in each
     public void makeSet(int n) {
         NodoDisjoint nodo = new NodoDisjoint(n,null,0);
+        nodo.setPadre(nodo);
         nodos[n] = parentList.addFirst(nodo);
 
     }
@@ -38,7 +39,7 @@ public class DisjointSet {
     public NodoDisjoint find(int x) {
         // Finds the representative of the set
         // that x is an element of
-        if (nodos[x].element().getPadre() != null) {
+        if (nodos[x].element().getPadre() != nodos[x].element()) {
             // if x is not the parent of itself
             // Then x is not the representative of
             // his set,

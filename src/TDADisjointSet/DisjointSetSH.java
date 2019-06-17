@@ -28,13 +28,14 @@ public class DisjointSetSH {
     // Creates n sets with single item in each
     public void makeSet(int n) {
         NodoDisjointSH nodo = new NodoDisjointSH(n,null,0);
+        nodo.setPadre(nodo);
         nodos[n] = parentList.addFirst(nodo);
     }
 
     // Returns representative of x's set
     public NodoDisjointSH find(int x) {
 
-        if (nodos[x-1].element().getPadre() != null) {
+        if (nodos[x].element().getPadre() != null) {
             // if x is not the parent of itself
             // Then x is not the representative of
             // his set,
@@ -44,7 +45,7 @@ public class DisjointSetSH {
             // representative of this set
         }
 
-        return nodos[x].element();
+        return nodos[x].element().getPadre();
     }
 
     // Unites the set that includes x and the set
