@@ -71,5 +71,6 @@ public class Conexo {
                 count++;
         }
         return count<2;
+
     }
 }
