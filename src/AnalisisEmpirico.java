@@ -15,27 +15,27 @@ public class AnalisisEmpirico{
     public static void main(String[] args) throws Exception {
         Grafo grafo;
         DoubleLinkedList<ResultadoConexo> lista=new DoubleLinkedList<>();
-        grafo = getGrafo(5,4);
+        grafo = getGrafo(5,4,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
-        grafo = getGrafo(50,49);
+        grafo = getGrafo(50,49,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
-        grafo = getGrafo(150,150);
+        grafo = getGrafo(150,150,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
-        grafo = getGrafo(333, 332);
+        grafo = getGrafo(333, 332,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
-        grafo = getGrafo(456, 500);
+        grafo = getGrafo(456, 500,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
-        grafo = getGrafo(500, 124750);
+        grafo = getGrafo(500, 124750,0);
         lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
@@ -117,9 +117,9 @@ public class AnalisisEmpirico{
         System.out.println("-Tiempo de ejecucion? -> "+timeElapsed+"ns");
     }
 
-    private static Grafo getGrafo(int nodos, int arcos) throws Exception {
+    private static Grafo getGrafo(int nodos, int arcos,int conexo) throws Exception {
         // TODO Auto-generated method stub
-        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos+"&conexo=1";
+        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos+"&conexo="+conexo;
         Process process = Runtime.getRuntime().exec(consulta);
         InputStream inputSt = process.getInputStream();
         @SuppressWarnings("resource")
