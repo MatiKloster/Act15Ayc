@@ -56,29 +56,18 @@ public class Heap{
 	}
 
 	public void heapify(int i){
-		boolean seguir=true;
-		while(seguir){
-			int hDer=(i*2)+1,hIzq=i*2;
-			int m=0;
-			boolean tieneHIzq=hIzq<=size,tieneHDer=hDer<=size;
-			if(!tieneHIzq) seguir=false;
-			else{
-				if(tieneHDer){
-					if(ar[hIzq].getPeso() < ar[hDer].getPeso())
-						m=hIzq;
-					else
-						m=hDer;
-				}
-				else m=hIzq;
-			}
-
-			if(seguir && ar[hIzq].getPeso() > ar[hDer].getPeso()){
-				Pesado aux=ar[i];
-				ar[i]=ar[m];
-				ar[m]=aux;
-				i=m;
-			}
-			else seguir=false;
+		int hIzq=2*i, hDer=2*i+1;
+		int menor;
+		if ((hIzq <= size) && (ar[hIzq].getPeso() < ar[i].getPeso()))
+			menor=hIzq;
+		else menor=i;
+		if ((hDer <= size) && (ar[hDer].getPeso() < menor))
+			menor = hDer;
+		if (menor!=i){
+			Pesado aux= ar[menor];
+			ar[menor]=ar[i];
+			ar[i]=aux;
+			heapify(menor);
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class DisjointSetSH {
     }
 
     public void initiate(int[] nodos){
-        for(int i= 0; i <= nodos.length; i++){
+        for(int i= 0; i < nodos.length; i++){
          makeSet(nodos[i]);
         }
     }
@@ -35,7 +35,7 @@ public class DisjointSetSH {
     // Returns representative of x's set
     public NodoDisjointSH find(int x) {
 
-        if (nodos[x].element().getPadre() != null) {
+        if (nodos[x].element().getPadre() != nodos[x].element()) {
             // if x is not the parent of itself
             // Then x is not the representative of
             // his set,

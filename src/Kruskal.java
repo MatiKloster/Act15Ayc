@@ -51,7 +51,7 @@ public class Kruskal {
 
     private DoubleLinkedList<Pesado> ordernarLista() throws Exception {
         DoubleLinkedList<Pesado> ar=new DoubleLinkedList<>();
-        Heap heap=new Heap(graph.getArcosCount());
+        Heap heap=new Heap(graph.getArcosCount()+1);
         for (Pesado pesado : graph.getArcos()) {
             heap.insert(pesado);
         }
@@ -78,7 +78,7 @@ public class Kruskal {
         return t;
     }
     private Heap ordenarAenHeap(){
-        Heap heap=new Heap(graph.getArcosCount());
+        Heap heap=new Heap(graph.getArcosCount()+1);
         for (Pesado pesado : graph.getArcos()) {
             heap.insert(pesado);
         }

@@ -34,7 +34,6 @@ public class Conexo {
         for(int n:graph.getNodos()){
             if(color[n]==Color.blanco){
                 color[n]= Color.gris;
-                padre[n]=-1;
                 Q.enqueue(n);
                 visitarBFS(graph,Q);
             }

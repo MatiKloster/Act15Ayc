@@ -171,7 +171,7 @@ public class DoubleLinkedList<E>  implements PositionList<E> {
 	}
 
 	public E removeFirst() throws InvalidPositionException {
-		return remove(head);
+		return remove(head.siguiente);
 	}
 }
 

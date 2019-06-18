@@ -1,10 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.stream.IntStream;
-
 import TDAColaPrioridad.Pesado;
-import TDALista.PositionList;
+
+import java.util.ArrayList;
 
 public class Grafo {
     private int[] nodos;
@@ -59,7 +55,7 @@ public class Grafo {
     public void showGraph(){
         for(int i=0;i<matrizAdyacencia.length;i++){
             for(int j=0;j<matrizAdyacencia.length;j++){
-                if(matrizAdyacencia[i][j]==null)System.out.print("0 ");
+                if(matrizAdyacencia[i][j]==null)System.out.print("0   ");
                 else System.out.print(matrizAdyacencia[i][j].getPeso()+" ");
             }
             System.out.println();
