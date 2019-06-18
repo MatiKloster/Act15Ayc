@@ -42,7 +42,6 @@ public class Conexo {
     }
 
     private void visitarBFS(Grafo graph,Queue<Integer> Q) throws EmptyQueueException {
-
         while(!Q.isEmpty()){
             int n=Q.front();
             Pesado [] adyacentes = graph.getAdyacentes(n);
