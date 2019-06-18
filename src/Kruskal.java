@@ -1,10 +1,10 @@
 import TDAColaPrioridad.Heap;
-import TDAColaPrioridad.Pesado;
 import TDADisjointSet.DisjointSet;
 import TDADisjointSet.DisjointSetSH;
 import TDADisjointSet.NodoDisjoint;
 import TDADisjointSet.NodoDisjointSH;
 import TDALista.DoubleLinkedList;
+import business.Pesado;
 
 public class Kruskal {
     private Grafo graph;

@@ -1,3 +1,4 @@
+import Exceptions.InvalidPositionException;
 import TDACola.EmptyQueueException;
 import TDALista.DoubleLinkedList;
 import com.google.gson.Gson;
@@ -11,35 +12,35 @@ public class AnalisisEmpirico{
         Grafo grafo;
         DoubleLinkedList<ResultadoConexo> lista=new DoubleLinkedList<>();
         grafo = getGrafo(5,4);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
         grafo = getGrafo(50,49);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
         grafo = getGrafo(150,150);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
         grafo = getGrafo(333, 332);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
         grafo = getGrafo(456, 500);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
-        TimeUnit.MILLISECONDS.sleep(500);
+        lista.addFirst(analisisConectitudBFS(grafo));
+       TimeUnit.MILLISECONDS.sleep(500);
         grafo = getGrafo(500, 124750);
-        lista.addFirst(analisisConectitudBFS(grafo));
         lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
         TimeUnit.MILLISECONDS.sleep(500);
         int i=1;
         for(ResultadoConexo rs: lista){
             System.out.println("Grafo numero:"+i+++", Conexo: "+rs.isResultado()+" time:"+rs.getTime()+"ns");
         }
     }
-    private static ResultadoConexo analisisConectitudDS(Grafo grafo) {
+    private static ResultadoConexo analisisConectitudDS(Grafo grafo) throws InvalidPositionException {
         Conexo conexoHelper = new Conexo();
         boolean resultado;
         long startTime = System.nanoTime();

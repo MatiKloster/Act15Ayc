@@ -1,14 +1,15 @@
+import Exceptions.InvalidPositionException;
 import TDACola.ColaEnlazada;
 import TDACola.EmptyQueueException;
 import TDACola.Queue;
-import TDAColaPrioridad.Pesado;
 import TDADisjointSet.DisjointSet;
 import TDADisjointSet.NodoDisjoint;
+import business.Pesado;
 
 public class Conexo {
     private int[] padre;
     private Color[] color;
-    public boolean conexoDS(Grafo graph){
+    public boolean conexoDS(Grafo graph) throws InvalidPositionException {
         DisjointSet d= new DisjointSet(graph.getNodosCount());
         d.initiate(graph.getNodos());
         for (Pesado pesado: graph.getArcos()){

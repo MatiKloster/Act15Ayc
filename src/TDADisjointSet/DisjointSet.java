@@ -6,15 +6,11 @@ import TDALista.NodoD;
 
 
 public class DisjointSet {
-    int[] rank;
     DoubleLinkedList<NodoDisjoint> parentList;
     NodoD<NodoDisjoint>[] nodos;
-
     int n;
-
     // Constructor
     public DisjointSet(int n) {
-        rank = new int[n];
         parentList= new DoubleLinkedList<>();
         nodos = new NodoD[n];
         this.n = n;
@@ -26,7 +22,6 @@ public class DisjointSet {
             makeSet(nodos[i]);
         }
     }
-
     // Creates n sets with single item in each
     public void makeSet(int n) {
         NodoDisjoint nodo = new NodoDisjoint(n,null,0);
@@ -34,7 +29,6 @@ public class DisjointSet {
         nodos[n] = parentList.addFirst(nodo);
 
     }
-
     // Returns representative of x's set
     public NodoDisjoint find(int x) {
         // Finds the representative of the set
@@ -52,10 +46,9 @@ public class DisjointSet {
 
         return nodos[x].element().getPadre();
     }
-
     // Unites the set that includes x and the set
     // that includes x
-    public void union(int x, int y) {
+    public void union(int x, int y) throws InvalidPositionException {
         // Find representatives of two sets
         NodoDisjoint xRoot = find(x), yRoot = find(y);
 
@@ -67,11 +60,8 @@ public class DisjointSet {
                 // Then move x under y  so that depth
                 // of tree remains less
                 xRoot.setPadre(yRoot);
-                try {
-                    parentList.remove(nodos[x]);
-                } catch (InvalidPositionException e) {
-                    e.printStackTrace();
-                }
+                parentList.remove(nodos[x]);
+
             }
                 // Else if y's rank is less than x's rank
             else if (yRoot.getRank() < xRoot.getRank()) {
@@ -90,11 +80,7 @@ public class DisjointSet {
                 // Then move y under x (doesn't matter
                 // which one goes where)
                 yRoot.setPadre(xRoot);
-                try {
-                    parentList.remove(nodos[y]);
-                } catch (InvalidPositionException e) {
-                    e.printStackTrace();
-                }
+                parentList.remove(nodos[y]);
 
                 // And increment the the result tree's
                 // rank by 1

@@ -1,10 +1,11 @@
-import TDAColaPrioridad.Pesado;
+import TDALista.DoubleLinkedList;
+import business.Pesado;
 
 import java.util.ArrayList;
 
 public class Grafo {
     private int[] nodos;
-    private ArrayList<Pesado> arcos;
+    private DoubleLinkedList<Pesado> arcos;
     private Pesado[][] matrizAdyacencia;
 
 
@@ -19,7 +20,7 @@ public class Grafo {
     @SuppressWarnings("rawtypes")
     public Grafo(GrafoObj grafoJson){
         this.nodos = grafoJson.nodos;
-        this.arcos = new ArrayList<Pesado>();
+        this.arcos = new DoubleLinkedList();
 
         int cantNodos=nodos.length;
         matrizAdyacencia=new Pesado[cantNodos][cantNodos];
@@ -42,7 +43,7 @@ public class Grafo {
             arcoLista.add(nodoDerecho);
 
             Pesado pesado = new Pesado(arcoLista.get(0), arcoLista.get(1), ((Double) arcosJson[i][1]).intValue());
-            this.arcos.add(pesado);
+            this.arcos.addFirst(pesado);
             matrizAdyacencia[nodoIzquierdo][nodoDerecho]=pesado;
             matrizAdyacencia[nodoDerecho][nodoIzquierdo]=pesado;
         }
@@ -62,7 +63,7 @@ public class Grafo {
         }
     }
 
-    public ArrayList<Pesado> getArcos(){
+    public DoubleLinkedList<Pesado> getArcos(){
         return arcos;
     }
 
