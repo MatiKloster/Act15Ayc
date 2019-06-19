@@ -24,7 +24,6 @@ public class NodoDisjoint {
         return elemento;
     }
 
-
     public int getRank() {
         return rank;
     }
