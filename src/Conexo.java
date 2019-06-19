@@ -2,7 +2,7 @@ import Exceptions.InvalidPositionException;
 import TDACola.ColaEnlazada;
 import TDACola.EmptyQueueException;
 import TDACola.Queue;
-import TDADisjointSet.DisjointSet;
+import TDADisjointSet.DisjointSetCH;
 import TDADisjointSet.NodoDisjoint;
 import business.Pesado;
 
@@ -14,7 +14,7 @@ public class Conexo {
     * entonces el grafo es conexo
     * */
     public boolean conexoDS(Grafo graph) throws InvalidPositionException {
-        DisjointSet d= new DisjointSet(graph.getNodosCount());
+        DisjointSetCH d= new DisjointSetCH(graph.getNodosCount());
         d.initiate(graph.getNodos());// inicializamos la ed
         for (Pesado pesado: graph.getArcos()){
             NodoDisjoint compu = d.find(pesado.getArco().getNodo1());//
