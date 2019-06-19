@@ -1,8 +1,8 @@
-public class ResultadoConexo {
+public class Resultado {
     private boolean resultado;
     private double time;
 
-    public ResultadoConexo(boolean resultado, double time) {
+    public Resultado(boolean resultado, double time) {
         this.resultado = resultado;
         this.time=time;
     }

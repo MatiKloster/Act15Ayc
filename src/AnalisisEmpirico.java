@@ -1,123 +1,131 @@
+import Exceptions.InvalidPositionException;
 import TDACola.EmptyQueueException;
-import TDAColaPrioridad.Pesado;
 import TDALista.DoubleLinkedList;
+import business.Pesado;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.InputStream;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 public class AnalisisEmpirico{
 
     public static void main(String[] args) throws Exception {
         Grafo grafo;
-        DoubleLinkedList<ResultadoConexo> lista=new DoubleLinkedList<>();
-        grafo = getGrafo(500,65000);
-        analisisArbolMinimoCubrimiento(grafo);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        grafo = getGrafo(50,49);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        grafo = getGrafo(150,150);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        grafo = getGrafo(333, 332);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        grafo = getGrafo(456, 500);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        grafo = getGrafo(500, 124750);
-//        lista.addFirst(analisisConectitudBFS(grafo));
-//        lista.addFirst(analisisConectitudDS(grafo));
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        int i=1;
-//        for(ResultadoConexo rs: lista){
-//            System.out.println("Grafo numero:"+i+++", Conexo: "+rs.isResultado()+" time:"+rs.getTime()+"ns");
-//        }
+        DoubleLinkedList<Resultado> lista=new DoubleLinkedList<>();
+        System.out.println("Obteniendo 6 grafos, cargando ....");
+        grafo = getGrafo(5,4,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        grafo = getGrafo(50,49,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        grafo = getGrafo(150,150,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        grafo = getGrafo(333, 54236,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        grafo = getGrafo(456, 100000,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        grafo = getGrafo(500, 124750,0);
+        lista.addFirst(analisisConectitudDS(grafo));
+        lista.addFirst(analisisConectitudBFS(grafo));
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        System.out.println("6 grafos verificando conectitud:");
+        int i=1;
+        for(Resultado rs: lista){
+            System.out.println("Grafo numero:"+i+++", Conexo: "+rs.isResultado()+" time:"+rs.getTime()+"ns");
+        }
+        DoubleLinkedList<ResultadoKruskal> listaKruskal;
+        System.out.println("Obteniendo 6 grafos conexos, cargando ....");
+
+        grafo=getGrafo(5,4,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+        grafo=getGrafo(50,49,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+        grafo=getGrafo(150,150,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+        grafo=getGrafo(333,54236,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+        grafo=getGrafo(456,100000,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+        grafo=getGrafo(500,124750,1);
+        mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
+
+
+        System.out.println("6 grafos conexos, obteniendo el arbol de cubrimiento minimal:");
     }
-    private static ResultadoConexo analisisConectitudDS(Grafo grafo) {
+
+    private static void mostrarKruskal(DoubleLinkedList<ResultadoKruskal> resultadosKruskal) {
+        int i=1;
+        for(ResultadoKruskal res:resultadosKruskal){
+            System.out.println("Time"+ i+++": "+res.getTime());
+        }
+    }
+
+    private static Resultado analisisConectitudDS(Grafo grafo) throws InvalidPositionException {
         Conexo conexoHelper = new Conexo();
         boolean resultado;
         long startTime = System.nanoTime();
         resultado = conexoHelper.conexoDS(grafo);
         long endtime = System.nanoTime();
-        return new ResultadoConexo(resultado, endtime - startTime );
+        return new Resultado(resultado, endtime - startTime );
     }
-    private static ResultadoConexo analisisConectitudBFS(Grafo grafo) throws EmptyQueueException {
+    private static Resultado analisisConectitudBFS(Grafo grafo) throws EmptyQueueException {
         Conexo conexoHelper =new Conexo();
         boolean resultado;
         long  startTime = System.nanoTime();
         resultado=conexoHelper.conexoBFS(grafo);
         long endtime=System.nanoTime();
-        return new ResultadoConexo(resultado,endtime-startTime);
+        return new Resultado(resultado,endtime-startTime);
     }
 
-    private static void analisisArbolMinimoCubrimiento(Grafo grafo) throws Exception{
+    private static DoubleLinkedList<ResultadoKruskal> analisisArbolMinimoCubrimiento(Grafo grafo) throws Exception{
         Kruskal kruskal =new Kruskal(grafo);
-        System.out.println("/////////Kruskal con Heap (sin heurísiticas)/////////");
-        System.out.println("Se prodecera a obtener el arbol mínimo de cubrimiento con heap y controlando su tiempo:");
-        Instant start= Instant.now();
-        DoubleLinkedList<Pesado> resultado=kruskal.conHeapSH();
-        Instant finish=Instant.now();
-        long timeElapsed= Duration.between(start, finish).getNano();
-        System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos resultados con Kruskal con heap:");
-        System.out.print("Arbol: {");
-        for (Pesado arco : resultado){
-            System.out.print("("+arco.getArco().getNodo1()+","+arco.getArco().getNodo2()+")");
-        }
-        System.out.println("}");
-        System.out.println("-Tiempo de ejecucion? -> "+timeElapsed+"ns");
-        System.out.println("/////////Kruskal con Heap (con heurísticas)/////////");
-        System.out.println("Se prodecera a obtener el arbol mínimo de cubrimiento con heap y controlando su tiempo:");
-        start= Instant.now();
+        DoubleLinkedList<ResultadoKruskal> toRet=new DoubleLinkedList<>();
+        DoubleLinkedList<Pesado> resultado;
+        long  startTime;
+        long endtime;
+        startTime = System.nanoTime();
+        resultado=kruskal.conHeapSH();
+        endtime=System.nanoTime();
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+
+        startTime = System.nanoTime();
         resultado=kruskal.conHeap();
-        finish=Instant.now();
-        timeElapsed= Duration.between(start, finish).getNano();
-        System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos resultados con Kruskal con heap:");
-        System.out.print("Arbol: {");
-        for (Pesado arco : resultado){
-            System.out.print("("+arco.getArco().getNodo1()+","+arco.getArco().getNodo2()+")");
-        }
-        System.out.println("}");
-        System.out.println("-Tiempo de ejecucion? -> "+timeElapsed+"ns");
-        System.out.println("/////////Kruskal con Arcos ordenados (sin heurísiticas)/////////");
-        System.out.println("Se prodecera a obtener el arbol mínimo de cubrimiento con arcos ordenados y controlando su tiempo:");
-        start= Instant.now();
+        endtime=System.nanoTime();
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+
+        startTime = System.nanoTime();
         resultado=kruskal.arcosOrdenadosSH();
-        finish=Instant.now();
-        timeElapsed= Duration.between(start, finish).getNano();
-        System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos resultados con Kruskal con arcos ordenados:");
-        System.out.print("Arbol: {");
-        for (Pesado arco : resultado){
-            System.out.print("("+arco.getArco().getNodo1()+","+arco.getArco().getNodo2()+")");
-        }
-        System.out.println("}");
-        System.out.println("-Tiempo de ejecucion? -> "+timeElapsed+"ns");
-        System.out.println("/////////Kruskal con Arcos ordenados (con heurísiticas)/////////");
-        System.out.println("Se prodecera a obtener el arbol mínimo de cubrimiento con arcos ordenados y controlando su tiempo:");
-        start= Instant.now();
+        endtime=System.nanoTime();
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+
+        startTime = System.nanoTime();
         resultado=kruskal.arcosOrdenadosCH();
-        finish=Instant.now();
-        timeElapsed= Duration.between(start, finish).getNano();
-        System.out.println("Grafo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos resultados con Kruskal con arcos ordenados:");
-        System.out.print("Arbol: {");
-        for (Pesado arco : resultado){
-            System.out.print("("+arco.getArco().getNodo1()+","+arco.getArco().getNodo2()+")");
-        }
-        System.out.println("}");
-        System.out.println("-Tiempo de ejecucion? -> "+timeElapsed+"ns");
+        endtime=System.nanoTime();
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+
+        return toRet;
     }
 
-    private static Grafo getGrafo(int nodos, int arcos) throws Exception {
+    private static Grafo getGrafo(int nodos, int arcos,int conexo) throws Exception {
         // TODO Auto-generated method stub
-        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos+"&conexo=1";
+        String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos+"&conexo="+conexo;
         Process process = Runtime.getRuntime().exec(consulta);
         InputStream inputSt = process.getInputStream();
         @SuppressWarnings("resource")

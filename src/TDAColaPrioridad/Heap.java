@@ -1,7 +1,7 @@
 package TDAColaPrioridad;
-
+import business.Pesado;
 public class Heap{
-	private Pesado [] ar;
+	private Pesado[] ar;
 	private int size;
 	
 	public Heap(int cant){
