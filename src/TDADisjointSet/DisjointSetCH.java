@@ -5,104 +5,90 @@ import TDALista.DoubleLinkedList;
 import TDALista.NodoD;
 
 
-public class DisjointSet {
-    int[] rank;
+public class DisjointSetCH {
     DoubleLinkedList<NodoDisjoint> parentList;
     NodoD<NodoDisjoint>[] nodos;
 
-    int n;
-
-    // Constructor
-    public DisjointSet(int n) {
-        rank = new int[n];
+    public DisjointSetCH(int n) {
+        //Crea una lista de nodos padre (cantidad de subconjuntos)
         parentList= new DoubleLinkedList<>();
+        //Crea una lista de nodos del tamaño del entero pasado por parámetro
         nodos = new NodoD[n];
-        this.n = n;
-
     }
 
     public void initiate(int[] nodos){
+        //Crea un conjunto para cada nodo en el arreglo de nodos
         for(int i= 0; i < nodos.length; i++){
             makeSet(nodos[i]);
         }
     }
 
-    // Creates n sets with single item in each
+    //Crea conjuntos con un nodo
     public void makeSet(int n) {
+        //Crea un nodo con elemento n
         NodoDisjoint nodo = new NodoDisjoint(n,null,0);
+        //Se asigna como padre de sí mismo
         nodo.setPadre(nodo);
+        //Agrega al nodo a la cabeza del arreglo de padres
         nodos[n] = parentList.addFirst(nodo);
 
     }
 
-    // Returns representative of x's set
+    //Retorna el nodo que representa al conjunto en el que se encuentra el nodo pasado por parámetro
     public NodoDisjoint find(int x) {
-        // Finds the representative of the set
-        // that x is an element of
+        //Si el nodo no es su propio padre, significa que no es el representante del conjunto.
         if (nodos[x].element().getPadre() != nodos[x].element()) {
-            // if x is not the parent of itself
-            // Then x is not the representative of
-            // his set,
+            //Entonces llamamos recursivamente a find con el padre del nodo x
             nodos[x].element().setPadre(find(nodos[x].element().getPadre().getElemento()));
-
-            // so we recursively call Find on its parent
-            // and move i's node directly under the
-            // representative of this set
         }
-
+        //Caso contrario, estamos con el nodo representante del conjunto.
         return nodos[x].element().getPadre();
     }
 
-    // Unites the set that includes x and the set
-    // that includes x
+    //Une a los conjuntos que contienen a 'x' y a 'y'
     public void union(int x, int y) {
-        // Find representatives of two sets
+        //Busca a los conjuntos de x e y
         NodoDisjoint xRoot = find(x), yRoot = find(y);
-
+        //Si find no retornó el mismo nodo, significa que no pertenecen al mismo conjunto,
         if (xRoot.getElemento() != yRoot.getElemento()) {
-
-            // If x's rank is less than y's rank
+            //Si el rango del conjunto que contiene a x es menor que el del conjunto que contiene a y
             if (xRoot.getRank() < yRoot.getRank()) {
-
-                // Then move x under y  so that depth
-                // of tree remains less
+                //Entonces ponemos al conjunto de x como hijo de la raíz del conjunto de y
                 xRoot.setPadre(yRoot);
                 try {
+                    //Por lo tanto x ya no es un nodo padre de un conjunto, lo remuevo.
                     parentList.remove(nodos[x]);
                 } catch (InvalidPositionException e) {
                     e.printStackTrace();
                 }
             }
-                // Else if y's rank is less than x's rank
+            //Caso contrario, el rango del conjunto de x puede ser mayor que el que contiene a y
             else if (yRoot.getRank() < xRoot.getRank()) {
-
-                // Then move y under x so that depth of
-                // tree remains less
+                //Entonces ponemos al conjunto de y como hijo de la raíz del conjunto de x
                 yRoot.setPadre(xRoot);
                 try {
+                    //Por lo tanto y ya no es un nodo padre de un conjunto, lo remuevo.
                     parentList.remove(nodos[y]);
                 } catch (InvalidPositionException e) {
                     e.printStackTrace();
                 }
             }
-            else // if ranks are the same
+            //Si llegamos hasta aquí, el rango de ambos conjuntos es igual
+            else
             {
-                // Then move y under x (doesn't matter
-                // which one goes where)
+                //Ponemos al conjunto de x como padre del conjunto de y (es lo mismo hacer la inversa)
                 yRoot.setPadre(xRoot);
                 try {
                     parentList.remove(nodos[y]);
                 } catch (InvalidPositionException e) {
                     e.printStackTrace();
                 }
-
-                // And increment the the result tree's
-                // rank by 1
+                //Y recalculamos el rango del conjunto de x
                 xRoot.setRank();
             }
         }
     }
-
+    //Retorna la cantidad de conjuntos en la estructura
     public int parentSize(){
         return parentList.size();
     }

@@ -2,14 +2,14 @@ import TDACola.ColaEnlazada;
 import TDACola.EmptyQueueException;
 import TDACola.Queue;
 import TDAColaPrioridad.Pesado;
-import TDADisjointSet.DisjointSet;
+import TDADisjointSet.DisjointSetCH;
 import TDADisjointSet.NodoDisjoint;
 
 public class Conexo {
     private int[] padre;
     private Color[] color;
     public boolean conexoDS(Grafo graph){
-        DisjointSet d= new DisjointSet(graph.getNodosCount());
+        DisjointSetCH d= new DisjointSetCH(graph.getNodosCount());
         d.initiate(graph.getNodos());
         for (Pesado pesado: graph.getArcos()){
             NodoDisjoint compu = d.find(pesado.getArco().getNodo1());
