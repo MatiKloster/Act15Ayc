@@ -53,17 +53,17 @@ public class AnalisisEmpirico{
         DoubleLinkedList<ResultadoKruskal> listaKruskal;
         System.out.println("Obteniendo 6 grafos conexos, cargando ....");
 
-        grafo=getGrafo(5,4,1);
+        grafo=getGrafo(10,9,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
-        grafo=getGrafo(50,49,1);
+        grafo=getGrafo(100,99,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
-        grafo=getGrafo(150,150,1);
+        grafo=getGrafo(200,200,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
-        grafo=getGrafo(333,54236,1);
+        grafo=getGrafo(366,54236,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
-        grafo=getGrafo(456,100000,1);
+        grafo=getGrafo(444,10660,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
-        grafo=getGrafo(500,124750,1);
+        grafo=getGrafo(500,65000,1);
         mostrarKruskal(analisisArbolMinimoCubrimiento(grafo));
 
 
@@ -73,7 +73,7 @@ public class AnalisisEmpirico{
     private static void mostrarKruskal(DoubleLinkedList<ResultadoKruskal> resultadosKruskal) {
         int i=1;
         for(ResultadoKruskal res:resultadosKruskal){
-            System.out.println("Time"+ i+++": "+res.getTime());
+            System.out.println("Grafo numero:"+i+++" time:"+res.getTime()+"ns"+" tipo:"+res.getExamen());
         }
     }
 
@@ -103,22 +103,22 @@ public class AnalisisEmpirico{
         startTime = System.nanoTime();
         resultado=kruskal.conHeapSH();
         endtime=System.nanoTime();
-        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime, "heap sh"));
 
         startTime = System.nanoTime();
-        resultado=kruskal.conHeap();
+        resultado=kruskal.conHeapCH();
         endtime=System.nanoTime();
-        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime, "heap ch"));
 
         startTime = System.nanoTime();
         resultado=kruskal.arcosOrdenadosSH();
         endtime=System.nanoTime();
-        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime, "arcos sh"));
 
         startTime = System.nanoTime();
         resultado=kruskal.arcosOrdenadosCH();
         endtime=System.nanoTime();
-        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime));
+        toRet.addLast(new ResultadoKruskal(resultado,endtime-startTime, "arcos ch"));
 
         return toRet;
     }
